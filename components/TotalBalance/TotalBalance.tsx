@@ -1,17 +1,22 @@
+"use client";
+
+import useSWR from 'swr';
+import { Transaction } from "@/types";
 import { getTransactions } from "@/utils/transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency } from "@/utils/formatters";
 
-export default async function TotalBalance() {
-  const transactions = await getTransactions();
+const fetcher = () => getTransactions();
+
+export default function TotalBalance() {
+  const { data: transactions, error } = useSWR<Transaction[]>('transactions', fetcher, {
+      refreshInterval: 15000
+  });
+
+  if (error) return <div>Falha ao carregar...</div>;
+  if (!transactions) return <div>Carregando...</div>;
+
   const total = calculateBalance(transactions);
-  //     const loadData = async () => {
-
-  //       setTotal(soma);
-  //     };
-
-  //     loadData();
-  //   }, []);
 
   return (
     <div>

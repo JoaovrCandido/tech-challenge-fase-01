@@ -1,16 +1,32 @@
+"use client";
+
+import useSWR from 'swr';
+import { Transaction } from "@/types";
 import { formatDate, formatCurrency } from "@/utils/formatters";
 import { getTransactions, sortTransactionsByDate } from "@/utils/transactions";
 import { getMonthName } from "@/utils/getMonthName";
 
 
-const TransactionsList = async () => {
-  const transactions = await getTransactions();
+const fetcher = () => getTransactions();
 
-  const sortedTransactions = sortTransactionsByDate(transactions);
+const TransactionsList = () => {
+  const { data: transactions, error, isLoading } = useSWR<Transaction[]>('transactions', fetcher, {
+      refreshInterval: 15000
+  });
 
-  if (sortedTransactions.length === 0) {
+  if (isLoading) {
+    return <p>Carregando transações...</p>;
+  }
+
+  if (error) {
+    return <p>Ocorreu um erro ao buscar as transações.</p>;
+  }
+  
+  if (!transactions || transactions.length === 0) {
     return <p>Nenhuma transação encontrada.</p>;
   }
+
+  const sortedTransactions = sortTransactionsByDate(transactions);
 
   return (
     <div>
