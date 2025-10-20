@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧩 Projeto Next.js com TypeScript e Storybook
 
-## Getting Started
+Este projeto foi criado com [Next.js](https://nextjs.org/) utilizando **TypeScript** e **ESLint** para garantir qualidade de código.
+Também inclui **Storybook** para documentação e visualização de componentes.
 
-First, run the development server:
+---
+
+## 🚀 Requisitos
+
+Antes de começar, verifique se você tem instalado:
+
+* [Node.js](https://nodejs.org/) (versão **16** ou superior recomendada)
+* [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+---
+
+## 📦 Instalação
+
+Clone o repositório e instale as dependências:
+
+```bash
+# Clonar o repositório
+git clone https://github.com/JoaovrCandido/tech-challenge-fase-01.git
+
+# Entrar na pasta do projeto
+cd tech-challenge-fase-01
+
+# Instalar dependências
+npm install
+# ou
+yarn
+```
+
+---
+
+## ▶️ Rodando o projeto localmente
+
+Para iniciar o servidor de desenvolvimento do Next.js:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível em:
+👉 **[http://localhost:3000](http://localhost:3000)**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📖 Storybook
 
-## Learn More
+Este projeto utiliza **Storybook** para visualizar e documentar os componentes.
 
-To learn more about Next.js, take a look at the following resources:
+### Rodar o Storybook
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run storybook
+# ou
+yarn storybook
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Após o carregamento, o Storybook estará disponível em:
+👉 **[http://localhost:6006](http://localhost:6006)**
+---
 
-## Deploy on Vercel
+## 📁 Estrutura básica do projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── .storybook
+├── app/
+│   ├── api/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── ...
+├── components
+├── public
+├── styles
+├── types
+└── utils
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧠 Tecnologias principais
+
+* [Next.js](https://nextjs.org/)
+* [React](https://react.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [ESLint](https://eslint.org/)
+* [Storybook](https://storybook.js.org/)
+
+---
+
