@@ -9,7 +9,7 @@ export async function getTransactions(): Promise<Transaction[]> {
 
   if (!response.ok) {
     console.error("Falha ao buscar transações");
-    return [];
+    throw new Error('Falha ao buscar transações')
   }
 
   return response.json();
