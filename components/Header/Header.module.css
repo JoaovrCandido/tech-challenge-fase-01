@@ -1,7 +1,23 @@
-.container {
-  background-color: var(--background-primary);
+.header {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
 }
 
-.text {
-  color: var(--white);
+.acessibilidade {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.claroescuro {
+    cursor: pointer;
+}
+
+.tamanhofonte {
+    cursor: pointer;
+    margin-right: var(--spacing-md);
 }

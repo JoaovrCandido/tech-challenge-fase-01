@@ -1,0 +1,6 @@
+.Menu {
+    background-color: var(--color-secondary);
+    padding: var(--spacing-lg);
+    width: 200px;
+    border-radius: var(--radius-md);
+}
