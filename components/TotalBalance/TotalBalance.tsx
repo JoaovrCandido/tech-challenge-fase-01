@@ -5,6 +5,7 @@ import { Transaction } from "@/types";
 import { getTransactions } from "@/utils/transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency } from "@/utils/formatters";
+import Loading from '../Loading/Loading';
 
 const fetcher = () => getTransactions();
 
@@ -14,7 +15,7 @@ export default function TotalBalance() {
   });
 
   if (error) return <div>Falha ao carregar...</div>;
-  if (!transactions) return <div>Carregando...</div>;
+  if (!transactions) return <Loading />;
 
   const total = calculateBalance(transactions);
 

@@ -5,6 +5,7 @@ import { Transaction } from "@/types";
 import { formatDate, formatCurrency } from "@/utils/formatters";
 import { getTransactions, sortTransactionsByDate } from "@/utils/transactions";
 import { getMonthName } from "@/utils/getMonthName";
+import Loading from '../Loading/Loading';
 
 
 const fetcher = () => getTransactions();
@@ -15,7 +16,7 @@ const TransactionsList = () => {
   });
 
   if (isLoading) {
-    return <p>Carregando transações...</p>;
+    return <Loading />
   }
 
   if (error) {
