@@ -8,7 +8,7 @@ import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency, formatDate } from "@/utils/formatters";
 import { getWeekday } from "@/utils/getWeekday";
 import { TransactionType } from "@/types";
-import  SuccessModal from "@/components/SuccessModal/SuccessModal";
+import SuccessModal from "@/components/SuccessModal/SuccessModal";
 
 import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
