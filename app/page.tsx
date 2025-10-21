@@ -1,15 +1,13 @@
-import TotalBalance from '@/components/TotalBalance/TotalBalance';
-
-import style from './home.module.css'
+import TotalBalance from "@/components/TotalBalance/TotalBalance";
+import BoxBalance from "@/components/BoxBalance/BoxBalance";
+import NewTransaction from "@/components/NewTransaction/NewTransaction";
+import Menu from "@/components/Menu/Menu";
 
 export default function Home() {
   return (
     <section>
-      <h1 className={style.title}>Bem-vindo</h1>
-
-      <br />
-
-      <TotalBalance />
+      <BoxBalance />
+      <NewTransaction />
     </section>
   );
 }

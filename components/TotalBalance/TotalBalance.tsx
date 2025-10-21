@@ -6,6 +6,7 @@ import { getTransactions } from "@/utils/transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency } from "@/utils/formatters";
 import Loading from '../Loading/Loading';
+import style from "./TotalBance.module.css";
 
 const fetcher = () => getTransactions();
 
@@ -21,7 +22,7 @@ export default function TotalBalance() {
 
   return (
     <div>
-      <p>{formatCurrency(total)}</p>
+      <h3 className={style.showbalance}>{formatCurrency(total)}</h3>
     </div>
   );
 }
