@@ -17,7 +17,14 @@
     cursor: pointer;
 }
 
-.tamanhofonte {
-    cursor: pointer;
+/* .tamanhofonte { */
+    /* cursor: pointer; */
+    /* margin-right: var(--spacing-md); */
+/* } */
+
+.buttonIcon {
+    background: transparent;
+    border: none;
     margin-right: var(--spacing-md);
+    cursor: pointer;
 }

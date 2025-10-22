@@ -16,6 +16,7 @@
     background-color: rgba(207, 207, 207, 0.35);
     padding: var(--spacing-xl);
     border-radius: var(--radius-md);
+    margin-top: var(--spacing-md);
 }
 
 .NovaTransacao h3 {
