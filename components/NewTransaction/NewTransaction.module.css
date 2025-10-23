@@ -12,19 +12,19 @@
     background-color: var(--color-primary);
 }
 
-.NovaTransacao {
+.newTransaction {
     background-color: rgba(207, 207, 207, 0.35);
     padding: var(--spacing-xl);
     border-radius: var(--radius-md);
     margin-top: var(--spacing-md);
 }
 
-.NovaTransacao h3 {
+.newTransaction h3, .newTransaction p {
     margin-bottom: var(--spacing-md);
 }
 
-.NovaTransacao select,
-.NovaTransacao input {
+.newTransaction select,
+.newTransaction input {
     width: 100%;
     padding: var(--spacing-sm);
     border: 1px solid var(--color-gray);

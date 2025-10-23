@@ -8,12 +8,7 @@ import {
   ReactNode,
 } from "react";
 
-interface AccessibilityContextType {
-  theme: "light" | "dark";
-  fontLevel: 0 | 1 | 2;
-  toggleDarkMode: () => void;
-  toggleChangeFontSize: () => void;
-}
+import { AccessibilityContextType } from "@/types";
 
 const AccessibilityContext = createContext<
   AccessibilityContextType | undefined

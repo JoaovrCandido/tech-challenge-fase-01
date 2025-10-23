@@ -7,20 +7,20 @@
     padding: var(--spacing-sm);
 }
 
-.acessibilidade {
+.accessibility {
     display: flex;
     align-items: center;
     justify-content: end;
 }
 
-.claroescuro {
+.lightAndDarkImg {
     cursor: pointer;
 }
 
-/* .tamanhofonte { */
-    /* cursor: pointer; */
-    /* margin-right: var(--spacing-md); */
-/* } */
+.fontSizeImg {
+    cursor: pointer;
+    margin-right: var(--spacing-md);
+}
 
 .buttonIcon {
     background: transparent;

@@ -6,7 +6,8 @@ import {
   useAccessibility,
 } from "@/contexts/AccessibilityProvider";
 
-import Header, { type HeaderProps } from "./Header";
+import Header from "./Header";
+import { HeaderProps } from "@/types";
 
 const meta = {
   title: "Components/Home/Header",

@@ -1,16 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { HeaderProps } from "@/types";
+
 import style from "./Header.module.css";
 
 import alterarfonte from "@/public/alterarfonte.png";
 import modoclaroescuro from "@/public/modoclaroescuro.png";
-
-export interface HeaderProps {
-  title: string;
-  onToggleFontSize: () => void;
-  onToggleDarkMode: () => void;
-}
 
 export default function Header({
   title,
@@ -20,18 +16,18 @@ export default function Header({
   return (
     <header className={style.header}>
       <h1>{title}</h1>
-      <div className={style.acessibilidade}>
+      <div className={style.accessibility}>
         <button
           className={style.buttonIcon}
           onClick={onToggleFontSize}
           aria-label="Alterar tamanho da fonte"
         >
           <Image
-            className={style.tamanhofonte}
+            className={style.fontSizeImg}
             src={alterarfonte}
             width={35}
             height={35}
-            alt=""
+            alt="Imagem alterar tamanho da fonte"
           />
         </button>
 
@@ -41,11 +37,11 @@ export default function Header({
           aria-label="Alternar modo claro ou escuro"
         >
           <Image
-            className={style.claroescuro}
+            className={style.lightAndDarkImg}
             src={modoclaroescuro}
             width={40}
             height={40}
-            alt=""
+            alt="Imagem alterar tamanho da fonte"
           />
         </button>
       </div>

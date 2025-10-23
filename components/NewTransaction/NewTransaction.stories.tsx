@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { useState } from "react";
-import NewTransaction, { TransactionType } from "./NewTransaction";
+import NewTransaction from "./NewTransaction";
+import { TransactionType } from "@/types";
+import  SuccessModal from "../SuccessModal/SuccessModal";
 
 import { userEvent, within } from "@storybook/testing-library";
 
@@ -16,16 +18,16 @@ const meta: Meta<typeof NewTransaction> = {
 
   argTypes: {
     onTypeChange: { table: { disable: true } },
-    onValorChange: { table: { disable: true } },
-    onDescricaoChange: { table: { disable: true } },
+    onValueChange: { table: { disable: true } },
+    onDescriptionChange: { table: { disable: true } },
     onSubmit: { table: { disable: true } },
     disabled: { control: "boolean" },
   },
 
   args: {
     onTypeChange: logAction("onTypeChange"),
-    onValorChange: logAction("onValorChange"),
-    onDescricaoChange: logAction("onDescricaoChange"),
+    onValueChange: logAction("onValueChange"),
+    onDescriptionChange: logAction("onDescriptionChange"),
     onSubmit: logAction("onSubmit"),
     disabled: false,
   },
@@ -37,39 +39,55 @@ type Story = StoryObj<typeof NewTransaction>;
 export const Default: Story = {
   render: (args) => {
     const [type, setType] = useState<TransactionType>("");
-    const [valor, setValor] = useState("");
-    const [descricao, setDescricao] = useState("");
+    const [value, setValue] = useState("");
+    const [description, setDescription] = useState("");
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [modalTitle, setModalTitle] = useState("Sucesso!");
 
     const handleSubmit = () => {
-      console.log("[Storybook Submit Data]", { type, valor, descricao });
+      console.log("[Storybook Submit Data]", { type, value, description });
 
       args.onSubmit();
 
+      setIsOpenModal(true);
+      setModalTitle("Sucesso!!!")
+      setModalMessage("Transação realizado com sucesso!");
+
       setType("");
-      setValor("");
-      setDescricao("");
+      setValue("");
+      setDescription("");
     };
 
     return (
+      <>
       <NewTransaction
         {...args}
         type={type}
-        valor={valor}
-        descricao={descricao}
+        value={value}
+        description={description}
         onTypeChange={(value) => {
           setType(value);
           args.onTypeChange(value);
         }}
-        onValorChange={(value) => {
-          setValor(value);
-          args.onValorChange(value);
+        onValueChange={(value) => {
+          setValue(value);
+          args.onValueChange(value);
         }}
-        onDescricaoChange={(value) => {
-          setDescricao(value);
-          args.onDescricaoChange(value);
+        onDescriptionChange={(value) => {
+          setDescription(value);
+          args.onDescriptionChange(value);
         }}
         onSubmit={handleSubmit}
       />
+
+      <SuccessModal 
+        isOpen={isOpenModal}
+        title={modalTitle}
+        onClose={() => setIsOpenModal(false)}
+        message={modalMessage}
+      />
+      </>
     );
   },
 };
@@ -77,8 +95,8 @@ export const Default: Story = {
 export const Disabled: Story = {
   args: {
     type: "deposito",
-    valor: "1.250,00",
-    descricao: "Enviando dados...",
+    value: "1.250,00",
+    description: "Deposito...",
     disabled: true,
   },
 };

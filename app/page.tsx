@@ -7,7 +7,8 @@ import { getTransactions } from "@/utils/transactions";
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency, formatDate } from "@/utils/formatters";
 import { getWeekday } from "@/utils/getWeekday";
-import { TransactionType } from "@/components/NewTransaction/NewTransaction";
+import { TransactionType } from "@/types";
+import  SuccessModal from "@/components/SuccessModal/SuccessModal";
 
 import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
@@ -18,9 +19,12 @@ const fetcher = () => getTransactions();
 
 export default function Home() {
   const [type, setType] = useState<TransactionType>("");
-  const [valor, setValor] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("Sucesso!");
 
   const { data: transactions, error } = useSWR<Transaction[]>(
     "transactions",
@@ -43,18 +47,30 @@ export default function Home() {
   const displayDate =
     weekday.charAt(0).toLowerCase() + weekday.slice(1) + ", " + formatted;
 
+  const handleCreate = () => {
+    setIsOpenModal(true);
+    setModalTitle("Sucesso!!!")
+    setModalMessage("Transação realizado com sucesso!");
+  };
+
+  const handleInvalidForm = () => {
+    setIsOpenModal(true);
+    setModalTitle("Erro!!!")
+    setModalMessage("Por favor, preencha a transação!");
+  };
+
   const handleSubmit = async () => {
-    if (!type || !valor) {
-      alert("Por favor, preencha o tipo e o valor.");
+    if (!type || !value) {
+      handleInvalidForm();
       return;
     }
 
     setIsSubmitting(true);
-    alert("Transação realizada");
+    handleCreate();
     setType("");
-    setValor("");
-    setDescricao("");
-    console.log("Enviando dados para a API:", { type, valor, descricao });
+    setValue("");
+    setDescription("");
+    console.log("Enviando dados para a API:", { type, value, description });
     setIsSubmitting(false);
   };
 
@@ -64,16 +80,23 @@ export default function Home() {
 
       <NewTransaction
         type={type}
-        valor={valor}
-        descricao={descricao}
+        value={value}
+        description={description}
         onTypeChange={setType}
-        onValorChange={setValor}
-        onDescricaoChange={setDescricao}
+        onValueChange={setValue}
+        onDescriptionChange={setDescription}
         onSubmit={handleSubmit}
         disabled={isSubmitting}
       />
 
       <Menu />
+
+      <SuccessModal
+        isOpen={isOpenModal}
+        title={modalTitle}
+        onClose={() => setIsOpenModal(false)}
+        message={modalMessage}
+      />
     </section>
   );
 }

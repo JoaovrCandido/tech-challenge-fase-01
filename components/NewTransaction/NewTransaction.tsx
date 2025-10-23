@@ -1,40 +1,30 @@
 "use client";
 
 import style from "./NewTransaction.module.css";
-
-export type TransactionType = "deposito" | "transferencia" | "";
-
-export interface NewTransactionProps {
-  type: TransactionType;
-  valor: string;
-  descricao: string;
-  onTypeChange: (value: TransactionType) => void;
-  onValorChange: (value: string) => void;
-  onDescricaoChange: (value: string) => void;
-  onSubmit: () => void;
-  disabled?: boolean;
-}
+import { TransactionType } from "@/types";
+import { NewTransactionProps } from "@/types";
 
 export default function NewTransaction({
   type,
-  valor,
-  descricao,
+  value,
+  description,
   onTypeChange,
-  onValorChange,
-  onDescricaoChange,
+  onValueChange,
+  onDescriptionChange,
   onSubmit,
   disabled = false,
 }: NewTransactionProps) {
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const apenasNumeros = e.target.value.replace(/[^0-9.,]/g, "");
-    onValorChange(apenasNumeros);
+    onValueChange(apenasNumeros);
   };
 
   return (
-    <div className={style.NovaTransacao}>
+    <div className={style.newTransaction}>
       <h3>Nova transação</h3>
 
       <select
+        aria-label="Tipo de transação"
         value={type}
         onChange={(e) => onTypeChange(e.target.value as TransactionType)}
         disabled={disabled}
@@ -45,11 +35,12 @@ export default function NewTransaction({
         <option value="deposito">Depósito</option>
         <option value="transferencia">Transferência</option>
       </select>
-
+      
+      <p>Valor</p>
       <input
         type="text"
         placeholder="00,00"
-        value={valor}
+        value={value}
         onChange={handleValorChange}
         disabled={disabled}
       />
@@ -57,8 +48,8 @@ export default function NewTransaction({
       <input
         type="text"
         placeholder="Descrição (opcional)"
-        value={descricao}
-        onChange={(e) => onDescricaoChange(e.target.value)}
+        value={description}
+        onChange={(e) => onDescriptionChange(e.target.value)}
         disabled={disabled}
       />
 
