@@ -66,7 +66,6 @@ export default function Home() {
         type={type}
         valor={valor}
         descricao={descricao}
-        // Passe as funções 'set' como 'handlers' de mudança
         onTypeChange={setType}
         onValorChange={setValor}
         onDescricaoChange={setDescricao}

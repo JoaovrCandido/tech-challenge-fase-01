@@ -47,9 +47,7 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        // Interceptamos a chamada GET para '/api/transactions'
         http.get("http://localhost:3000/api/transactions", () => {
-          // E retornamos nossos dados de exemplo com um status 200 (OK)
           return HttpResponse.json(mockTransactions);
         }),
       ],
