@@ -19,6 +19,7 @@ export interface Database {
 }
 
 export interface NewTransactionProps {
+  title: string;
   type: TransactionType;
   value: string;
   description?: string;

@@ -1,15 +1,20 @@
 "use client";
 
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { useState } from "react";
+
 import { Transaction } from "@/types";
-import { getTransactions } from "@/utils/transactions";
+import { TransactionType } from "@/types";
+
+import { getTransactions, createTransaction } from "@/lib/api";
+
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency, formatDate } from "@/utils/formatters";
 import { getWeekday } from "@/utils/getWeekday";
-import { TransactionType } from "@/types";
-import  SuccessModal from "@/components/SuccessModal/SuccessModal";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+
+import SuccessModal from "@/components/SuccessModal/SuccessModal";
 import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
@@ -25,6 +30,8 @@ export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("Sucesso!");
+
+  const isMobile = useIsMobile();
 
   const { data: transactions, error } = useSWR<Transaction[]>(
     "transactions",
@@ -49,29 +56,54 @@ export default function Home() {
 
   const handleCreate = () => {
     setIsOpenModal(true);
-    setModalTitle("Sucesso!!!")
+    setModalTitle("Sucesso!!!");
     setModalMessage("Transação realizado com sucesso!");
   };
 
   const handleInvalidForm = () => {
     setIsOpenModal(true);
-    setModalTitle("Erro!!!")
+    setModalTitle("Erro!!!");
     setModalMessage("Por favor, preencha a transação!");
   };
 
+  const handleRequestError = () => {
+    setIsOpenModal(true);
+    setModalTitle("Erro!!!");
+    setModalMessage("Erro ao enviar a transação!");
+  };
+
   const handleSubmit = async () => {
-    if (!type || !value) {
+    if (!type || !value || value <= "0") {
       handleInvalidForm();
       return;
     }
 
+    const newTransaction = {
+      type,
+      amount: Number(value),
+      description,
+    };
+
     setIsSubmitting(true);
-    handleCreate();
-    setType("");
-    setValue("");
-    setDescription("");
     console.log("Enviando dados para a API:", { type, value, description });
-    setIsSubmitting(false);
+
+    try {
+      const created = await createTransaction(newTransaction);
+
+      console.log("transação criada: ", created);
+
+      mutate("transactions");
+
+      setType("");
+      setValue("");
+      setDescription("");
+    } catch (error) {
+      console.error("Erro ao enviar a transação:", error);
+      handleRequestError();
+    } finally {
+      handleCreate();
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -79,6 +111,7 @@ export default function Home() {
       <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
       <NewTransaction
+        title="Nova transação"
         type={type}
         value={value}
         description={description}
@@ -89,7 +122,7 @@ export default function Home() {
         disabled={isSubmitting}
       />
 
-      <Menu />
+      {!isMobile && <Menu />}
 
       <SuccessModal
         isOpen={isOpenModal}

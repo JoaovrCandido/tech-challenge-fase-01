@@ -7,6 +7,10 @@
     padding: var(--spacing-sm);
 }
 
+.headerTitle {
+    font-size: var(--font-size-xl);
+}
+
 .accessibility {
     display: flex;
     align-items: center;
