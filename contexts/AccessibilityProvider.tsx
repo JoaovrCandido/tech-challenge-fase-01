@@ -41,12 +41,14 @@ export function AccessibilityProvider({
       root.style.setProperty("--color-primary", "#0c6779");
       root.style.setProperty("--color-primary-light", "#004D61");
       root.style.setProperty("--color-secondary", "#333333");
+      root.style.setProperty("--color-bg-components", "#0A0A0A")
     } else {
       root.style.setProperty("--color-bg", "#e8f0e8");
       root.style.setProperty("--color-text", "#222222");
       root.style.setProperty("--color-primary", "#004D61");
       root.style.setProperty("--color-primary-light", "#0c6779");
       root.style.setProperty("--color-secondary", "#f4f6f2");
+      root.style.setProperty("--color-bg-components", "#f5f5f5")
     }
   }, [theme]);
 
@@ -62,9 +64,9 @@ export function AccessibilityProvider({
         break;
       case 1:
         root.style.setProperty("--font-size-sm", "1rem");
-        root.style.setProperty("--font-size-md", "1.15rem");
+        root.style.setProperty("--font-size-md", "1.25rem");
         root.style.setProperty("--font-size-lg", "1.5rem");
-        root.style.setProperty("--font-size-xl", "1.8rem");
+        root.style.setProperty("--font-size-xl", "1.75rem");
         break;
       case 2:
         root.style.setProperty("--font-size-sm", "0.75rem");

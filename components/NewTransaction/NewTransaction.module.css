@@ -6,6 +6,7 @@
     padding: var(--spacing-sm) var(--spacing-md);
     cursor: pointer;
     transition: background-color 0.2s;
+    font-size: var(--font-size-sm);
 }
 
 .button:hover {
@@ -21,6 +22,14 @@
 
 .newTransaction h3, .newTransaction p {
     margin-bottom: var(--spacing-md);
+}
+
+.newTransaction h3 {
+    font-size: var(--font-size-lg);
+}
+
+.newTransaction p {
+    font-size: var(--font-size-md);
 }
 
 .newTransaction select,

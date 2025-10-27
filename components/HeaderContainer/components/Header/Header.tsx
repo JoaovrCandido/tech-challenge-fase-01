@@ -15,7 +15,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header className={style.header}>
-      <h1>{title}</h1>
+      <h1 className={style.headerTitle}>{title}</h1>
       <div className={style.accessibility}>
         <button
           className={style.buttonIcon}

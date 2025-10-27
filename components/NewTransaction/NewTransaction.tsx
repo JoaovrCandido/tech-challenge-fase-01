@@ -5,6 +5,7 @@ import { TransactionType } from "@/types";
 import { NewTransactionProps } from "@/types";
 
 export default function NewTransaction({
+  title,
   type,
   value,
   description,
@@ -21,7 +22,7 @@ export default function NewTransaction({
 
   return (
     <div className={style.newTransaction}>
-      <h3>Nova transação</h3>
+      <h3>{title}</h3>
 
       <select
         aria-label="Tipo de transação"
@@ -39,7 +40,7 @@ export default function NewTransaction({
       <p>Valor</p>
       <input
         type="text"
-        placeholder="00,00"
+        placeholder="10,00"
         value={value}
         onChange={handleValorChange}
         disabled={disabled}

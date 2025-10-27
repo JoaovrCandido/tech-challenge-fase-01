@@ -8,7 +8,7 @@
 }
 
 .welcome {
-    font-size: 25px;
+    font-size: var(--font-size-lg);
     font-weight: bold;
     margin-bottom: var(--spacing-lg);
 }
@@ -27,14 +27,14 @@
 }
 
 .balance h3 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     font-weight: bold;
     margin-top: var(--spacing-xs);
     opacity: 0.9;
 }
 
 .balance h4 {
-    font-size: 31px;
+    font-size: var(--font-size-xl);
     font-weight: normal;
 }
 
@@ -49,10 +49,10 @@
 }
 
 .account  {
-    margin-right: var(--spacing-xl);
+    margin-right: var(--spacing-sm);
 }
 
 .currentAccount {
-    font-size: 16px;
+    font-size: var(--font-size-md);
     font-weight: normal;
 }
