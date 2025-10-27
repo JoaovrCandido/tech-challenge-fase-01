@@ -14,6 +14,8 @@ import Loading from "@/components/Loading/Loading";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
 import Menu from "@/components/Menu/Menu";
 
+import style from "./home.module.css"
+
 const fetcher = () => getTransactions();
 
 export default function Home() {
@@ -59,22 +61,25 @@ export default function Home() {
   };
 
   return (
-    <section>
-      <BoxBalance balance={formatedBalance} dateString={displayDate} />
+    <section className={style.pageContainer}>
+      <div>
+        <Menu />
+      </div>
+      <div>
+        <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
-      <NewTransaction
-        type={type}
-        valor={valor}
-        descricao={descricao}
-        // Passe as funções 'set' como 'handlers' de mudança
-        onTypeChange={setType}
-        onValorChange={setValor}
-        onDescricaoChange={setDescricao}
-        onSubmit={handleSubmit}
-        disabled={isSubmitting}
-      />
-
-      <Menu />
+        <NewTransaction
+          type={type}
+          valor={valor}
+          descricao={descricao}
+          // Passe as funções 'set' como 'handlers' de mudança
+          onTypeChange={setType}
+          onValorChange={setValor}
+          onDescricaoChange={setDescricao}
+          onSubmit={handleSubmit}
+          disabled={isSubmitting}
+        />
+      </div>
     </section>
   );
 }
