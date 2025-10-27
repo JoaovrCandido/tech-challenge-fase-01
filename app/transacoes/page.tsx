@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import TransactionsList from "@/components/TransactionsList/TransactionsList";
+import TransactionsContainer from "@/components/TransactionsContainer/TransactionsContainer";
 
 import style from './transacoes.module.css';
 
@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default function Transacoes() {
   return (
     <section>
-      <h1 className={style.title}>Transações</h1>
-      <br />
-      <TransactionsList />
+      <h1 className={style.title}>Extrato</h1>
+
+      <TransactionsContainer />
     </section>
   );
 }

@@ -1,43 +1,34 @@
-// NewTransaction.stories.tsx
-
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { useState } from "react"; 
-import NewTransaction, { TransactionType } from "./NewTransaction";
-
-// 1. 'action' FOI REMOVIDO
-// import { action } from '@storybook/addon-actions'; 
+import { useState } from "react";
+import NewTransaction from "./NewTransaction";
+import { TransactionType } from "@/types";
+import  SuccessModal from "../SuccessModal/SuccessModal";
 
 import { userEvent, within } from "@storybook/testing-library";
 
-// 2. Crie uma função 'helper' para substituir o 'action'
-//    Isso vai logar no console (F12) do seu navegador
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logAction = (name: string) => (...args: any[]) => {
-  console.log(`[Storybook Action] ${name}`, ...args);
-};
+    console.log(`[Storybook Action] ${name}`, ...args);
+  };
 
 const meta: Meta<typeof NewTransaction> = {
   title: "Components/Home/NewTransaction",
   component: NewTransaction,
-  tags: ['autodocs'],
-  
-  // 3. Atualize o argTypes. Em vez de 'action',
-  //    vamos 'desabilitar' eles da tabela de controles
-  //    (pois não são props visuais).
+  tags: ["autodocs"],
+
   argTypes: {
     onTypeChange: { table: { disable: true } },
-    onValorChange: { table: { disable: true } },
-    onDescricaoChange: { table: { disable: true } },
+    onValueChange: { table: { disable: true } },
+    onDescriptionChange: { table: { disable: true } },
     onSubmit: { table: { disable: true } },
-    disabled: { control: 'boolean' },
+    disabled: { control: "boolean" },
   },
-  
-  // 4. Atualize os 'args' para usar a nova função 'logAction'
+
   args: {
-    onTypeChange: logAction('onTypeChange'),
-    onValorChange: logAction('onValorChange'),
-    onDescricaoChange: logAction('onDescricaoChange'),
-    onSubmit: logAction('onSubmit'),
+    onTypeChange: logAction("onTypeChange"),
+    onValueChange: logAction("onValueChange"),
+    onDescriptionChange: logAction("onDescriptionChange"),
+    onSubmit: logAction("onSubmit"),
     disabled: false,
   },
 };
@@ -45,93 +36,87 @@ const meta: Meta<typeof NewTransaction> = {
 export default meta;
 type Story = StoryObj<typeof NewTransaction>;
 
-// ----------------------------------------------------
-// Story 1: Default (Interativa)
-// ----------------------------------------------------
 export const Default: Story = {
   render: (args) => {
     const [type, setType] = useState<TransactionType>("");
-    const [valor, setValor] = useState("");
-    const [descricao, setDescricao] = useState("");
+    const [value, setValue] = useState("");
+    const [description, setDescription] = useState("");
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [modalTitle, setModalTitle] = useState("Sucesso!");
 
-    // A função que o componente vai chamar (com 0 argumentos)
     const handleSubmit = () => {
-      // ----- CORREÇÃO AQUI -----
+      console.log("[Storybook Submit Data]", { type, value, description });
 
-      // 1. Logue os dados manualmente no console.
-      //    (Isto é o que você queria fazer)
-      console.log("[Storybook Submit Data]", { type, valor, descricao });
+      args.onSubmit();
 
-      // 2. Chame o spy 'onSubmit' (o logAction) da forma correta:
-      //    com 0 argumentos, apenas para registrar que foi chamado.
-      args.onSubmit(); // <-- Erro corrigido
+      setIsOpenModal(true);
+      setModalTitle("Sucesso!!!")
+      setModalMessage("Transação realizado com sucesso!");
 
-      // 3. Limpe os campos
       setType("");
-      setValor("");
-      setDescricao("");
+      setValue("");
+      setDescription("");
     };
 
     return (
+      <>
       <NewTransaction
-        {...args} // Passa 'disabled' e os 'on...Change' spies
-        
+        {...args}
         type={type}
-        valor={valor}
-        descricao={descricao}
-        
-        // Passa os setters de estado
+        value={value}
+        description={description}
         onTypeChange={(value) => {
           setType(value);
-          args.onTypeChange(value); 
+          args.onTypeChange(value);
         }}
-        onValorChange={(value) => {
-          setValor(value);
-          args.onValorChange(value);
+        onValueChange={(value) => {
+          setValue(value);
+          args.onValueChange(value);
         }}
-        onDescricaoChange={(value) => {
-          setDescricao(value);
-          args.onDescricaoChange(value);
+        onDescriptionChange={(value) => {
+          setDescription(value);
+          args.onDescriptionChange(value);
         }}
-
-        // Passa o *nosso* handleSubmit, que faz o log e limpa.
         onSubmit={handleSubmit}
       />
+
+      <SuccessModal 
+        isOpen={isOpenModal}
+        title={modalTitle}
+        onClose={() => setIsOpenModal(false)}
+        message={modalMessage}
+      />
+      </>
     );
   },
 };
 
-// ----------------------------------------------------
-// Story 2: Estado desabilitado (enviando)
-// ----------------------------------------------------
 export const Disabled: Story = {
   args: {
     type: "deposito",
-    valor: "1.250,00",
-    descricao: "Enviando dados...",
+    value: "1.250,00",
+    description: "Deposito...",
     disabled: true,
   },
 };
 
-// ----------------------------------------------------
-// Story 3: Teste de preenchimento
-// ----------------------------------------------------
 export const PreenchendoFormulario: Story = {
-  // O 'play' também NÃO MUDA NADA
-  ...Default, 
+  ...Default,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const select = canvas.getByRole('combobox');
-    const valueInput = canvas.getByPlaceholderText('00,00');
-    const descInput = canvas.getByPlaceholderText('Descrição (opcional)');
-    const submitButton = canvas.getByRole('button', { name: /concluir transação/i });
+    const select = canvas.getByRole("combobox");
+    const valueInput = canvas.getByPlaceholderText("00,00");
+    const descInput = canvas.getByPlaceholderText("Descrição (opcional)");
+    const submitButton = canvas.getByRole("button", {
+      name: /concluir transação/i,
+    });
 
-    await userEvent.selectOptions(select, 'deposito');
-    await userEvent.type(valueInput, '250,50');
-    await userEvent.type(descInput, 'Pagamento da fatura');
-    
+    await userEvent.selectOptions(select, "deposito");
+    await userEvent.type(valueInput, "250,50");
+    await userEvent.type(descInput, "Pagamento da fatura");
+
     await userEvent.click(submitButton);
-    // O clique vai disparar o 'logAction'
   },
 };

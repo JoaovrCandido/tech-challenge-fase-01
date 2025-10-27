@@ -1,26 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { HeaderProps } from "@/types";
+
 import style from "./Header.module.css";
 
 import alterarfonte from "@/public/alterarfonte.png";
 import modoclaroescuro from "@/public/modoclaroescuro.png";
-
-// 1. Defina as props que o componente vai receber
-export interface HeaderProps {
-  /**
-   * O título principal a ser exibido no header.
-   */
-  title: string;
-  /**
-   * Função a ser chamada quando o botão de acessibilidade de fonte for clicado.
-   */
-  onToggleFontSize: () => void;
-  /**
-   * Função a ser chamada quando o botão de tema (claro/escuro) for clicado.
-   */
-  onToggleDarkMode: () => void;
-}
 
 export default function Header({
   title,
@@ -29,24 +15,19 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header className={style.header}>
-      {/* 3. Use a prop 'title' em vez de texto fixo */}
-      <h1>{title}</h1>
-      <div className={style.acessibilidade}>
-        {/* BÔNUS DE ACESSIBILIDADE ♿:
-          Imagens clicáveis DEVEM estar dentro de um <button> 
-          para serem acessíveis via teclado e leitores de tela.
-        */}
+      <h1 className={style.headerTitle}>{title}</h1>
+      <div className={style.accessibility}>
         <button
-          className={style.buttonIcon} // Crie um estilo para resetar o botão
+          className={style.buttonIcon}
           onClick={onToggleFontSize}
           aria-label="Alterar tamanho da fonte"
         >
           <Image
-            className={style.tamanhofonte}
+            className={style.fontSizeImg}
             src={alterarfonte}
             width={35}
             height={35}
-            alt="" // O alt fica no aria-label do botão
+            alt="Imagem alterar tamanho da fonte"
           />
         </button>
 
@@ -56,11 +37,11 @@ export default function Header({
           aria-label="Alternar modo claro ou escuro"
         >
           <Image
-            className={style.claroescuro}
+            className={style.lightAndDarkImg}
             src={modoclaroescuro}
             width={40}
             height={40}
-            alt="" // O alt fica no aria-label do botão
+            alt="Imagem alterar tamanho da fonte"
           />
         </button>
       </div>

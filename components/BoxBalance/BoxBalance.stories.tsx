@@ -35,26 +35,22 @@ export const Default: Story = {
 
 export const SaldoOculto: Story = {
   args: {
-    ...Default.args, // Reutiliza os args da story Default
+    ...Default.args,
     defaultIsActive: false,
   },
 };
 
-// Story 3: Testando a interação de clique
 export const InteracaoDeClique: Story = {
   args: {
     ...Default.args,
     defaultIsActive: true,
   },
-  // A função 'play' simula interações do usuário
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const eyeIcon = await canvas.getByAltText("Esconder ou mostrar saldo");
-    
-    // Simula o primeiro clique (para esconder)
+
     await userEvent.click(eyeIcon);
-    
-    // Simula o segundo clique (para mostrar novamente)
+
     await userEvent.click(eyeIcon);
   },
 };

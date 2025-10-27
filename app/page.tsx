@@ -1,14 +1,20 @@
 "use client";
 
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { useState } from "react";
+
 import { Transaction } from "@/types";
-import { getTransactions } from "@/utils/transactions";
+import { TransactionType } from "@/types";
+
+import { getTransactions, createTransaction } from "@/lib/api";
+
 import { calculateBalance } from "@/utils/calculateBalance";
 import { formatCurrency, formatDate } from "@/utils/formatters";
 import { getWeekday } from "@/utils/getWeekday";
-import { TransactionType } from "@/components/NewTransaction/NewTransaction";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+
+import SuccessModal from "@/components/SuccessModal/SuccessModal";
 import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
@@ -20,9 +26,14 @@ const fetcher = () => getTransactions();
 
 export default function Home() {
   const [type, setType] = useState<TransactionType>("");
-  const [valor, setValor] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("Sucesso!");
+
+  const isMobile = useIsMobile();
 
   const { data: transactions, error } = useSWR<Transaction[]>(
     "transactions",
@@ -45,19 +56,56 @@ export default function Home() {
   const displayDate =
     weekday.charAt(0).toLowerCase() + weekday.slice(1) + ", " + formatted;
 
+  const handleCreate = () => {
+    setIsOpenModal(true);
+    setModalTitle("Sucesso!!!");
+    setModalMessage("Transação realizado com sucesso!");
+  };
+
+  const handleInvalidForm = () => {
+    setIsOpenModal(true);
+    setModalTitle("Erro!!!");
+    setModalMessage("Por favor, preencha a transação!");
+  };
+
+  const handleRequestError = () => {
+    setIsOpenModal(true);
+    setModalTitle("Erro!!!");
+    setModalMessage("Erro ao enviar a transação!");
+  };
+
   const handleSubmit = async () => {
-    if (!type || !valor) {
-      alert("Por favor, preencha o tipo e o valor.");
+    if (!type || !value || value <= "0") {
+      handleInvalidForm();
       return;
     }
 
+    const newTransaction = {
+      type,
+      amount: Number(value),
+      description,
+    };
+
     setIsSubmitting(true);
-    alert("Transação realizada");
-    setType("");
-    setValor("");
-    setDescricao("");
-    console.log("Enviando dados para a API:", { type, valor, descricao });
-    setIsSubmitting(false);
+    console.log("Enviando dados para a API:", { type, value, description });
+
+    try {
+      const created = await createTransaction(newTransaction);
+
+      console.log("transação criada: ", created);
+
+      mutate("transactions");
+
+      setType("");
+      setValue("");
+      setDescription("");
+    } catch (error) {
+      console.error("Erro ao enviar a transação:", error);
+      handleRequestError();
+    } finally {
+      handleCreate();
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,18 +116,27 @@ export default function Home() {
       <div>
         <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
-        <NewTransaction
-          type={type}
-          valor={valor}
-          descricao={descricao}
-          // Passe as funções 'set' como 'handlers' de mudança
-          onTypeChange={setType}
-          onValorChange={setValor}
-          onDescricaoChange={setDescricao}
-          onSubmit={handleSubmit}
-          disabled={isSubmitting}
-        />
+      <NewTransaction
+        title="Nova transação"
+        type={type}
+        value={value}
+        description={description}
+        onTypeChange={setType}
+        onValueChange={setValue}
+        onDescriptionChange={setDescription}
+        onSubmit={handleSubmit}
+        disabled={isSubmitting}
+      />
       </div>
+
+      {!isMobile && <Menu />}
+
+      <SuccessModal
+        isOpen={isOpenModal}
+        title={modalTitle}
+        onClose={() => setIsOpenModal(false)}
+        message={modalMessage}
+      />
     </section>
   );
 }

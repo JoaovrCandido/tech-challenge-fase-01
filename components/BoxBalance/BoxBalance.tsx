@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { BoxBalanceProps } from "@/types";
 
 import olhofechado from "../../public/olhofechado.png";
 import olhoaberto from "../../public/olhoaberto.png";
@@ -8,15 +9,6 @@ import olhoaberto from "../../public/olhoaberto.png";
 import Image from "next/image";
 
 import style from "./BoxBalance.module.css";
-
-export interface BoxBalanceProps {
-  /** A data formatada para ser exibida */
-  dateString: string;
-  /** O valor do saldo. Se for `undefined`, mostramos o loading. */
-  balance?: string;
-  /** Estado inicial da visibilidade do saldo */
-  defaultIsActive?: boolean;
-}
 
 
 export default function BoxBalance({
@@ -27,21 +19,21 @@ export default function BoxBalance({
   const [isActive, setIsActive] = useState<boolean>(defaultIsActive);
 
   useEffect(() => {
-    // Se a prop 'defaultIsActive' mudar,
-    // force o estado 'isActive' a ter o mesmo valor.
     setIsActive(defaultIsActive);
   }, [defaultIsActive]);
 
   return (
-    <div className={style.boxSaldo}>
-      <h2 className={style.boasvindas}>Seja bem-vindo(a)!</h2>
-      <p className={style.data} id="dataAtual">{dateString}</p>
-      <div className={style.saldo}>
-        <div className={style.saldoeolho}>
-          <h4 className={style.conta}>Saldo</h4>
+    <div className={style.balanceBox}>
+      <h2 className={style.welcome}>Seja bem-vindo(a)!</h2>
+      <p className={style.date} id="dataAtual">
+        {dateString}
+      </p>
+      <div className={style.balance}>
+        <div className={style.balanceAndEye}>
+          <h3 className={style.account}>Saldo</h3>
 
           <Image
-            className={style.imgolho}
+            className={style.eyeImg}
             src={isActive ? olhoaberto : olhofechado}
             width={35}
             height={35}
@@ -52,7 +44,7 @@ export default function BoxBalance({
 
         <p className={style.currentAccount}>Conta Corrente</p>
 
-        {isActive ? <h3>{balance}</h3> : <h3>R$ ••••••</h3>}
+        {isActive ? <h4>{balance}</h4> : <h4>R$ ••••••</h4>}
       </div>
     </div>
   );

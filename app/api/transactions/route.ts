@@ -1,18 +1,6 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { Database, Transaction, TransactionInput } from '@/types';
-
-const dbPath = path.join(process.cwd(), 'db.json');
-
-const readDB = (): Database => {
-  const dbFile = fs.readFileSync(dbPath, 'utf-8');
-  return JSON.parse(dbFile);
-};
-
-const writeDB = (data: Database) => {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-};
+import { Transaction, TransactionInput } from '@/types';
+import { isValidInputType, readDB, writeDB } from '@/lib/db';
 
 export async function GET() {
   try {
@@ -31,6 +19,13 @@ export async function POST(request: Request) {
 
     if (!newTransactionData.type || !newTransactionData.amount || newTransactionData.amount <= 0) {
       return NextResponse.json({ message: 'Dados inválidos' }, { status: 400 });
+    }
+
+    if (!isValidInputType(newTransactionData.type)) {
+      return NextResponse.json(
+        { message: 'Tipo (type) inválido. Use "deposito" ou "transferencia"' }, 
+        { status: 400 }
+      );
     }
 
     const db = readDB();

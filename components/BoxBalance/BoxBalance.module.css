@@ -1,4 +1,4 @@
-.boxSaldo {
+.balanceBox {
     background-color: var(--color-primary);
     color: var(--color-white);
     border-radius: var(--radius-md);
@@ -7,18 +7,18 @@
     margin-bottom: var(--spacing-md);
 }
 
-.boasvindas {
-    font-size: 25px;
-    font-weight: 600;
+.welcome {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
     margin-bottom: var(--spacing-lg);
 }
 
-.boxSaldo .data {
+.balanceBox .date {
     font-size: var(--font-size-sm);
     opacity: 0.8;
 }
 
-.saldo {
+.balance {
     margin-top: var(--spacing-md);
     display: flex;
     align-items: end;
@@ -26,33 +26,33 @@
     flex-direction: column;
 }
 
-.saldo h3 {
-    font-size: 31px;
-    font-weight: 400;
-}
-
-.saldo h4 {
-    font-size: 20px;
-    font-weight: 600;
+.balance h3 {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
     margin-top: var(--spacing-xs);
     opacity: 0.9;
 }
 
-.saldoeolho {
+.balance h4 {
+    font-size: var(--font-size-xl);
+    font-weight: normal;
+}
+
+.balanceAndEye {
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-.imgolho {
+.eyeImg  {
     cursor: pointer;
 }
 
-.conta {
-    margin-right: var(--spacing-xl);
+.account  {
+    margin-right: var(--spacing-sm);
 }
 
 .currentAccount {
-    font-size: 16px;
-    font-weight: 400;
+    font-size: var(--font-size-md);
+    font-weight: normal;
 }

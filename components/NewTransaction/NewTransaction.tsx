@@ -1,54 +1,32 @@
 "use client";
 
 import style from "./NewTransaction.module.css";
+import { TransactionType } from "@/types";
+import { NewTransactionProps } from "@/types";
 
-// 1. (Opcional, mas recomendado) Definir o tipo de transação
-export type TransactionType = "deposito" | "transferencia" | "";
-
-// 2. Definir a interface de Props
-export interface NewTransactionProps {
-  /** O tipo de transação selecionado */
-  type: TransactionType;
-  /** O valor monetário da transação */
-  valor: string;
-  /** A descrição (opcional) da transação */
-  descricao: string;
-  /** Função chamada quando o tipo de transação muda */
-  onTypeChange: (value: TransactionType) => void;
-  /** Função chamada quando o valor muda */
-  onValorChange: (value: string) => void;
-  /** Função chamada quando a descrição muda */
-  onDescricaoChange: (value: string) => void;
-  /** Função chamada quando o botão de concluir é clicado */
-  onSubmit: () => void;
-  disabled?: boolean;
-}
-
-// 3. Remover 'useState' e receber as props
 export default function NewTransaction({
+  title,
   type,
-  valor,
-  descricao,
+  value,
+  description,
   onTypeChange,
-  onValorChange,
-  onDescricaoChange,
+  onValueChange,
+  onDescriptionChange,
   onSubmit,
   disabled = false,
 }: NewTransactionProps) {
-  // A sua lógica de validação continua aqui,
-  // mas agora ela chama a prop 'onValorChange'
   const handleValorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const apenasNumeros = e.target.value.replace(/[^0-9.,]/g, "");
-    onValorChange(apenasNumeros);
+    onValueChange(apenasNumeros);
   };
 
   return (
-    <div className={style.NovaTransacao}>
-      <h3>Nova transação</h3>
+    <div className={style.newTransaction}>
+      <h3>{title}</h3>
 
-      {/* 4. Conectar todos os inputs às props */}
       <select
-        value={type} // <-- Controlado pela prop 'type'
+        aria-label="Tipo de transação"
+        value={type}
         onChange={(e) => onTypeChange(e.target.value as TransactionType)}
         disabled={disabled}
       >
@@ -58,11 +36,12 @@ export default function NewTransaction({
         <option value="deposito">Depósito</option>
         <option value="transferencia">Transferência</option>
       </select>
-
+      
+      <p>Valor</p>
       <input
         type="text"
-        placeholder="00,00"
-        value={valor} // <-- Controlado pela prop 'valor'
+        placeholder="10,00"
+        value={value}
         onChange={handleValorChange}
         disabled={disabled}
       />
@@ -70,12 +49,11 @@ export default function NewTransaction({
       <input
         type="text"
         placeholder="Descrição (opcional)"
-        value={descricao} // <-- Controlado pela prop 'descricao'
-        onChange={(e) => onDescricaoChange(e.target.value)}
+        value={description}
+        onChange={(e) => onDescriptionChange(e.target.value)}
         disabled={disabled}
       />
 
-      {/* 5. Chamar a prop 'onSubmit' no clique */}
       <button className={style.button} onClick={onSubmit} disabled={disabled}>
         Concluir transação
       </button>
