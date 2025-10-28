@@ -13,11 +13,13 @@ interface TransactionsListProps {
   transactions: Transaction[];
 
   onEditClick: (transaction: Transaction) => void;
+  onDeleteClick: (transation: Transaction) => void;
 }
 
 const TransactionsList = ({
   transactions,
   onEditClick,
+  onDeleteClick
 }: TransactionsListProps) => {
   if (transactions.length === 0) {
     return <p>Nenhuma transação encontrada.</p>;
@@ -36,9 +38,8 @@ const TransactionsList = ({
                 <button
                   className={style.transactionEdit}
                   onClick={() => onEditClick(transaction)}
-                  aria-label={`Editar transação ${
-                    transaction.description || ""
-                  }`}
+                  aria-label={`Editar transação ${transaction.description || ""
+                    }`}
                 >
                   <Image
                     className={style.image}
@@ -51,9 +52,9 @@ const TransactionsList = ({
 
                 <button
                   className={style.transactionDelete}
-                  aria-label={`Excluir transação ${
-                    transaction.description || ""
-                  }`}
+                  onClick={() => onDeleteClick(transaction)}
+                  aria-label={`Excluir transação ${transaction.description || ""
+                    }`}
                 >
                   <Image
                     className={style.image}
