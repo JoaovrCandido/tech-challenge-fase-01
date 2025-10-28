@@ -30,6 +30,13 @@ export interface NewTransactionProps {
   disabled?: boolean;
 }
 
+export interface DeleteTransactioProps {
+  title: string;
+  onCancelSubmit: () => void;
+  onDeleteSubmit: () => void;
+  disabled?: boolean;
+}
+
 export interface BoxBalanceProps {
   dateString: string;
   balance?: string;
