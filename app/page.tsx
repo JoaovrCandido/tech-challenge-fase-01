@@ -3,6 +3,8 @@
 import useSWR, { mutate } from "swr";
 import { useState } from "react";
 
+import Link from "next/link";
+
 import { Transaction } from "@/types";
 import { TransactionType } from "@/types";
 
@@ -19,6 +21,9 @@ import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
 import Menu from "@/components/Menu/Menu";
+import TransactionsContainer from "@/components/TransactionsContainer/TransactionsContainer";
+
+import style from "./home.module.css";
 
 const fetcher = () => getTransactions();
 
@@ -107,22 +112,35 @@ export default function Home() {
   };
 
   return (
-    <section>
-      <BoxBalance balance={formatedBalance} dateString={displayDate} />
-
-      <NewTransaction
-        title="Nova transação"
-        type={type}
-        value={value}
-        description={description}
-        onTypeChange={setType}
-        onValueChange={setValue}
-        onDescriptionChange={setDescription}
-        onSubmit={handleSubmit}
-        disabled={isSubmitting}
-      />
-
+    <div className={style.layout}>
       {!isMobile && <Menu />}
+
+      <main className={style.mainContent}>
+        <BoxBalance balance={formatedBalance} dateString={displayDate} />
+
+        <NewTransaction
+          title="Nova transação"
+          type={type}
+          value={value}
+          description={description}
+          onTypeChange={setType}
+          onValueChange={setValue}
+          onDescriptionChange={setDescription}
+          onSubmit={handleSubmit}
+          disabled={isSubmitting}
+        />
+      </main>
+
+      {(
+        <Link href="/transacoes">
+          <aside className={style.transactionsPanel}>
+
+            <h2>Extrato</h2>
+
+            <TransactionsContainer />
+          </aside>
+        </Link>
+      )}
 
       <SuccessModal
         isOpen={isOpenModal}
@@ -130,6 +148,6 @@ export default function Home() {
         onClose={() => setIsOpenModal(false)}
         message={modalMessage}
       />
-    </section>
+    </div>
   );
 }

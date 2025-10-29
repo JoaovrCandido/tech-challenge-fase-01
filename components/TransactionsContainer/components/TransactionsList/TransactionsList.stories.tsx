@@ -38,7 +38,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const noop = () => {};
+const noop = () => { };
 
 export const Default: Story = {
   args: {
@@ -63,6 +63,7 @@ export const WithEditModal: Story = {
     const [editValue, setEditValue] = useState("");
     const [editDescription, setEditDescription] = useState("");
     const [isModalSucessOpen, setIsModalSucessOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState("");
     const [modalTitle, setModalTitle] = useState("Sucesso!");
 
@@ -80,6 +81,11 @@ export const WithEditModal: Story = {
       setIsModalOpen(true);
 
       console.log("Storybook: Botão 'Editar' clicado", transaction);
+    };
+
+    const handleDeleteClick = (transaction: Transaction) => {
+      setSelectedTransaction(transaction);
+      setIsDeleteModalOpen(true);
     };
 
     const handleCloseModal = () => {
@@ -112,6 +118,7 @@ export const WithEditModal: Story = {
         <TransactionsList
           transactions={mockTransactions}
           onEditClick={handleEditClick}
+          onDeleteClick={handleDeleteClick}
         />
 
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
