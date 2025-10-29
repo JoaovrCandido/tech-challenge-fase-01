@@ -7,6 +7,8 @@ import { Transaction, TransactionType, TransactionInput } from "@/types";
 
 import { sortTransactionsByDate } from "@/utils/transactions";
 
+import { usePathname } from "next/navigation";
+
 import { getTransactions, updateTransaction, deleteTransaction } from '@/lib/api';
 
 import Loading from '../Loading/Loading';
@@ -19,6 +21,9 @@ import SuccessModal from "../SuccessModal/SuccessModal";
 const fetcher = () => getTransactions();
 
 const TransactionsContainer = () => {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const { data: transactions, error, isLoading } = useSWR<Transaction[]>(
     'transactions',
     fetcher,
@@ -140,7 +145,7 @@ const TransactionsContainer = () => {
     return <p>Nenhuma transação encontrada.</p>;
   }
 
-  const sortedTransactions = sortTransactionsByDate(transactions);
+  const sortedTransactions = isHome ? sortTransactionsByDate(transactions).slice(0, 3) : sortTransactionsByDate(transactions);
 
   return (
     <>
