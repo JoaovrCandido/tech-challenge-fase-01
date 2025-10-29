@@ -110,26 +110,23 @@ export default function Home() {
 
   return (
     <section className={style.pageContainer}>
-      <div>
-        <Menu />
-      </div>
+      {!isMobile && <div><Menu /></div>}
+
       <div>
         <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
-      <NewTransaction
-        title="Nova transação"
-        type={type}
-        value={value}
-        description={description}
-        onTypeChange={setType}
-        onValueChange={setValue}
-        onDescriptionChange={setDescription}
-        onSubmit={handleSubmit}
-        disabled={isSubmitting}
-      />
+        <NewTransaction
+          title="Nova transação"
+          type={type}
+          value={value}
+          description={description}
+          onTypeChange={setType}
+          onValueChange={setValue}
+          onDescriptionChange={setDescription}
+          onSubmit={handleSubmit}
+          disabled={isSubmitting}
+        />
       </div>
-
-      {!isMobile && <Menu />}
 
       <SuccessModal
         isOpen={isOpenModal}
@@ -137,6 +134,7 @@ export default function Home() {
         onClose={() => setIsOpenModal(false)}
         message={modalMessage}
       />
+
     </section>
   );
 }

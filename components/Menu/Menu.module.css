@@ -2,5 +2,38 @@
     background-color: var(--color-secondary);
     padding: var(--spacing-lg);
     width: 200px;
+    height: fit-content;
     border-radius: var(--radius-md);
+    margin: 5%;
+}
+
+.active {
+    display: block;
+}
+
+.inactive {
+    display: none;
+}
+
+.menuItem {
+    color: black;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding: 16px;
+}
+
+.menuLinks {
+    list-style-type: none;
+}
+
+.menuLinks .start {
+    color: #47A138;
+    border-bottom: 1px solid #47A138;
+}
+
+.activeItem a {
+    color: #47A138;
+    /* cor do botão clicado */
 }

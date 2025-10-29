@@ -2,4 +2,10 @@
   font-size: var(--font-size-xl);
   color: var(--color-text);
   font-weight: bold;
+  padding-bottom: 3%;
+}
+
+.MExtrato {
+  display: flex !important;
+  flex-direction: row;
 }

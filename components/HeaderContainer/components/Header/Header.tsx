@@ -7,14 +7,18 @@ import style from "./Header.module.css";
 
 import alterarfonte from "@/public/alterarfonte.png";
 import modoclaroescuro from "@/public/modoclaroescuro.png";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import Menu from "@/components/Menu/Menu";
 
 export default function Header({
   title,
   onToggleFontSize,
   onToggleDarkMode,
 }: HeaderProps) {
+  const isMobile = useIsMobile();
   return (
     <header className={style.header}>
+      {isMobile && <Menu/>}
       <h1 className={style.headerTitle}>{title}</h1>
       <div className={style.accessibility}>
         <button
