@@ -115,7 +115,7 @@ export default function Home() {
     <div className={style.layout}>
       {!isMobile && <Menu />}
 
-      <main className={style.mainContent}>
+      <div className={style.mainContent}>
         <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
         <NewTransaction
@@ -129,7 +129,7 @@ export default function Home() {
           onSubmit={handleSubmit}
           disabled={isSubmitting}
         />
-      </main>
+      </div>
 
       {(
         <Link href="/transacoes">
