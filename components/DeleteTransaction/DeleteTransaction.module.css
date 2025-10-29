@@ -1,3 +1,10 @@
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .button {
     background-color: var(--color-primary-light);
     color: var(--color-white);
@@ -13,31 +20,18 @@
     background-color: var(--color-primary);
 }
 
-.newTransaction {
+.DeleteTransaction {
     background-color: rgba(207, 207, 207, 0.35);
     padding: var(--spacing-xl);
     border-radius: var(--radius-md);
-    margin: var(--spacing-md) 0;
+    margin-top: var(--spacing-md);
 }
 
-.newTransaction h3, .newTransaction p {
+.DeleteTransaction h3,
+.DeleteTransaction p {
     margin-bottom: var(--spacing-md);
 }
 
-.newTransaction h3 {
+.DeleteTransaction h3 {
     font-size: var(--font-size-lg);
-}
-
-.newTransaction p {
-    font-size: var(--font-size-md);
-}
-
-.newTransaction select,
-.newTransaction input {
-    width: 100%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--color-gray);
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-md);
 }

@@ -3,6 +3,8 @@
 import useSWR, { mutate } from "swr";
 import { useState } from "react";
 
+import Link from "next/link";
+
 import { Transaction } from "@/types";
 import { TransactionType } from "@/types";
 
@@ -19,8 +21,9 @@ import BoxBalance from "@/components/BoxBalance/BoxBalance";
 import Loading from "@/components/Loading/Loading";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
 import Menu from "@/components/Menu/Menu";
+import TransactionsContainer from "@/components/TransactionsContainer/TransactionsContainer";
 
-import style from "./home.module.css"
+import style from "./home.module.css";
 
 const fetcher = () => getTransactions();
 
@@ -109,10 +112,10 @@ export default function Home() {
   };
 
   return (
-    <section className={style.pageContainer}>
-      {!isMobile && <div><Menu /></div>}
+    <div className={style.layout}>
+      {!isMobile && <Menu />}
 
-      <div>
+      <div className={style.mainContent}>
         <BoxBalance balance={formatedBalance} dateString={displayDate} />
 
         <NewTransaction
@@ -128,13 +131,23 @@ export default function Home() {
         />
       </div>
 
+      {(
+        <Link href="/transacoes">
+          <aside className={style.transactionsPanel}>
+
+            <h2>Extrato</h2>
+
+            <TransactionsContainer />
+          </aside>
+        </Link>
+      )}
+
       <SuccessModal
         isOpen={isOpenModal}
         title={modalTitle}
         onClose={() => setIsOpenModal(false)}
         message={modalMessage}
       />
-
-    </section>
+      </div>
   );
 }
