@@ -3,11 +3,12 @@ import { useState } from "react";
 import style from "./Menu.module.css"
 import Link from 'next/link'
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { usePathname } from "next/navigation";
 export default function Menu() {
     const [open, setOpen] = useState(false);
-    const [active, setActive] = useState("inicio");
     const isMobile = useIsMobile();
-    
+    const pathname = usePathname();
+
     return (
         <div className={style.Menu}>
 
@@ -15,15 +16,13 @@ export default function Menu() {
                 <>
                     <ul className={`${style.menuLinks} ${open ? style.active : style.inactive}`}>
                         <li
-                            className={`${style.menuItem} ${active === "inicio" ? style.activeItem : ""}`}
-                            onClick={() => setActive("inicio")}
+                            className={`${style.menuItem} ${pathname === "/" ? style.activeItem : ""}`}
                         >
                             <Link href="/">Início</Link>
                         </li>
 
                         <li
-                            className={`${style.menuItem} ${active === "transacoes" ? style.activeItem : ""}`}
-                            onClick={() => setActive("transacoes")}
+                            className={`${style.menuItem} ${pathname === "/transacoes" ? style.activeItem : ""}`}
                         >
                             <Link href="/transacoes">Transações</Link>
                         </li>
@@ -36,15 +35,13 @@ export default function Menu() {
             ) : (
                 <ul className={style.menuLinks}>
                     <li
-                        className={`${style.menuItem} ${active === "inicio" ? style.activeItem : ""}`}
-                        onClick={() => setActive("inicio")}
+                        className={`${style.menuItem} ${pathname === "/" ? style.activeItem : ""}`}
                     >
                         <Link href="/">Início</Link>
                     </li>
 
                     <li
-                        className={`${style.menuItem} ${active === "transacoes" ? style.activeItem : ""}`}
-                        onClick={() => setActive("transacoes")}
+                        className={`${style.menuItem} ${pathname === "/transacoes" ? style.activeItem : ""}`}
                     >
                         <Link href="/transacoes">Transações</Link>
                     </li>

@@ -4,7 +4,6 @@
     width: 200px;
     height: fit-content;
     border-radius: var(--radius-md);
-    margin: 5%;
 }
 
 .active {
