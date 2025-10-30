@@ -4,6 +4,14 @@
     width: 200px;
     height: fit-content;
     border-radius: var(--radius-md);
+    @media (max-width: 768px) {
+        padding: var(--spacing-sm);
+        width: fit-content;
+        height: fit-content;
+        position: absolute;
+        top: 2vh;
+        left: 2vw;
+    }
 }
 
 .active {
