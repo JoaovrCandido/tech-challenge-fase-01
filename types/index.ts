@@ -62,3 +62,15 @@ export interface AccessibilityContextType {
   toggleDarkMode: () => void;
   toggleChangeFontSize: () => void;
 }
+
+export interface TransactionsListProps {
+  transactions: Transaction[];
+  title: string
+  onEditClick: (transaction: Transaction) => void;
+  onDeleteClick: (transation: Transaction) => void;
+}
+
+export interface TransactionsListHomeProps {
+  transaction: Transaction[];
+  title: string
+}

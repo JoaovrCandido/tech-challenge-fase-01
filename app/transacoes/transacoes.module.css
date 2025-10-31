@@ -6,10 +6,19 @@
 }
 
 .MExtrato {
-  display: flex !important;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .boxExtrato {
-  margin: 0 var(--spacing-lg);
+  grid-column: span 8;
+
+  @media (max-width: 768px) {
+    grid-column: auto;
+  }
 }

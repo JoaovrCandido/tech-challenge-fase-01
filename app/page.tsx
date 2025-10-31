@@ -3,8 +3,6 @@
 import useSWR, { mutate } from "swr";
 import { useState } from "react";
 
-import Link from "next/link";
-
 import { Transaction } from "@/types";
 import { TransactionType } from "@/types";
 
@@ -53,9 +51,13 @@ export default function Home() {
   const formatedBalance = formatCurrency(balance);
 
   const today = new Date();
-  const isoDate = today.toISOString();
-  const weekday = getWeekday(isoDate);
-  const formatted = formatDate(isoDate);
+
+  const localISO = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, -1);
+
+  const weekday = getWeekday(localISO);
+  const formatted = formatDate(localISO);
   const displayDate =
     weekday.charAt(0).toLowerCase() + weekday.slice(1) + ", " + formatted;
 
@@ -71,6 +73,12 @@ export default function Home() {
     setModalMessage("Por favor, preencha a transação!");
   };
 
+  const handleInvalidTransfer = () => {
+    setIsOpenModal(true);
+    setModalTitle("Erro!!!");
+    setModalMessage("Valor da trasferência maior do que o saldo atual!");
+  }
+
   const handleRequestError = () => {
     setIsOpenModal(true);
     setModalTitle("Erro!!!");
@@ -78,8 +86,13 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
-    if (!type || !value || value <= "0") {
+    if (!type || !value || Number(value) <= 0) {
       handleInvalidForm();
+      return;
+    }
+
+    if (type == "transferencia" && Number(value) > balance) {
+      handleInvalidTransfer();
       return;
     }
 
@@ -131,16 +144,10 @@ export default function Home() {
         />
       </div>
 
-      {(
-        <Link href="/transacoes">
           <aside className={style.transactionsPanel}>
-
-            <h2>Extrato</h2>
 
             <TransactionsContainer />
           </aside>
-        </Link>
-      )}
 
       <SuccessModal
         isOpen={isOpenModal}
@@ -148,6 +155,6 @@ export default function Home() {
         onClose={() => setIsOpenModal(false)}
         message={modalMessage}
       />
-      </div>
+    </div>
   );
 }

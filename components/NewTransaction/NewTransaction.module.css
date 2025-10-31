@@ -18,6 +18,10 @@
     padding: var(--spacing-xl);
     border-radius: var(--radius-md);
     margin: var(--spacing-md) 0;
+
+    @media (max-width: 768px) {
+        margin: var(--spacing-md) 0 0;
+    }
 }
 
 .newTransaction h3, .newTransaction p {

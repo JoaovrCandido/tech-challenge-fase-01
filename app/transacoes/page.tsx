@@ -1,21 +1,20 @@
-import type { Metadata } from "next";
+"use client";
+
 import TransactionsContainer from "@/components/TransactionsContainer/TransactionsContainer";
 import Menu from "@/components/Menu/Menu";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+
 import style from './transacoes.module.css';
 
-export const metadata: Metadata = {
-  title: "Transações",
-  description: "Transações - Projeto Financeiro",
-};
-
 export default function Transacoes() {
+  const isMobile = useIsMobile();
+
   return (
     <section className={style.MExtrato}>
-      <Menu />
+      {!isMobile && <Menu />}
 
       <div className={style.boxExtrato}>
-        <h1 className={style.title}>Extrato</h1>
 
       <TransactionsContainer />
       </div>

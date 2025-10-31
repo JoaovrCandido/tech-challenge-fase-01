@@ -5,6 +5,7 @@ import TransactionsList from "./TransactionsList";
 import Modal from "@/components/Modal/Modal";
 import NewTransaction from "@/components/NewTransaction/NewTransaction";
 import SuccessModal from "@/components/SuccessModal/SuccessModal";
+import DeleteTransaction from "@/components/DeleteTransaction/DeleteTransaction";
 
 import { Transaction, TransactionType } from "@/types";
 
@@ -38,10 +39,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const noop = () => { };
+const noop = () => {};
 
 export const Default: Story = {
   args: {
+    title: 'Extrato',
     transactions: mockTransactions,
     onEditClick: noop,
   },
@@ -49,6 +51,7 @@ export const Default: Story = {
 
 export const Empty: Story = {
   args: {
+    title: 'Extrato',
     transactions: [],
     onEditClick: noop,
   },
@@ -83,6 +86,21 @@ export const WithEditModal: Story = {
       console.log("Storybook: Botão 'Editar' clicado", transaction);
     };
 
+    const handleCloseDeleteModal = () => {
+      setIsDeleteModalOpen(false);
+    };
+
+    const handleCancelDeleteSubmit = () => {
+    handleCloseDeleteModal();
+  }
+
+  const handleDeleteSubmit = () => {
+    setIsDeleteModalOpen(false);
+    setIsModalSucessOpen(true);
+    setModalTitle("Sucesso!!!");
+    setModalMessage("Transação excluída com sucesso!");
+  }
+
     const handleDeleteClick = (transaction: Transaction) => {
       setSelectedTransaction(transaction);
       setIsDeleteModalOpen(true);
@@ -116,6 +134,7 @@ export const WithEditModal: Story = {
         </div>
 
         <TransactionsList
+          title="Extrato"
           transactions={mockTransactions}
           onEditClick={handleEditClick}
           onDeleteClick={handleDeleteClick}
@@ -149,6 +168,15 @@ export const WithEditModal: Story = {
               });
             }}
             onSubmit={handleEditSubmit}
+            disabled={false}
+          />
+        </Modal>
+
+        <Modal isOpen={isDeleteModalOpen} onClose={handleCloseDeleteModal}>
+          <DeleteTransaction
+            title="Deseja realmente deletar a transação?"
+            onCancelSubmit={handleCancelDeleteSubmit}
+            onDeleteSubmit={handleDeleteSubmit}
             disabled={false}
           />
         </Modal>

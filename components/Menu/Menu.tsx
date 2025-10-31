@@ -1,52 +1,67 @@
 "use client";
+
 import { useState } from "react";
-import style from "./Menu.module.css"
-import Link from 'next/link'
-import { useIsMobile } from "@/hooks/useIsMobile";
+
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { useIsMobile } from "@/hooks/useIsMobile";
+
+import style from "./Menu.module.css";
+
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
+const menuItems: MenuItem[] = [
+  { label: "Início", path: "/" },
+  { label: "Transações", path: "/transacoes" },
+];
+
 export default function Menu() {
-    const [open, setOpen] = useState(false);
-    const isMobile = useIsMobile();
-    const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
+  const pathname = usePathname();
 
-    return (
-        <div className={style.Menu}>
+  const renderLinks = () => (
+    <ul
+      className={`${style.menuLinks} ${
+        isMobile ? (open ? style.active : style.inactive) : ""
+      }`}
+    >
+      {menuItems.map((item) => {
+        const isActive = pathname === item.path;
+        return (
+          <li
+            key={item.path}
+            className={`${style.menuItem} ${isActive ? style.activeItem : ""}`}
+          >
+            <Link href={item.path}>{item.label}</Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 
-            {isMobile ? (
-                <>
-                    <ul className={`${style.menuLinks} ${open ? style.active : style.inactive}`}>
-                        <li
-                            className={`${style.menuItem} ${pathname === "/" ? style.activeItem : ""}`}
-                        >
-                            <Link href="/">Início</Link>
-                        </li>
+  return (
+    <div className={style.Menu}>
+      {isMobile ? (
+        <>
+          {renderLinks()}
 
-                        <li
-                            className={`${style.menuItem} ${pathname === "/transacoes" ? style.activeItem : ""}`}
-                        >
-                            <Link href="/transacoes">Transações</Link>
-                        </li>
-                    </ul>
-
-                    <button className={style.btnToggle} onClick={() => setOpen(!open)}>
-                        ☰
-                    </button>
-                </>
-            ) : (
-                <ul className={style.menuLinks}>
-                    <li
-                        className={`${style.menuItem} ${pathname === "/" ? style.activeItem : ""}`}
-                    >
-                        <Link href="/">Início</Link>
-                    </li>
-
-                    <li
-                        className={`${style.menuItem} ${pathname === "/transacoes" ? style.activeItem : ""}`}
-                    >
-                        <Link href="/transacoes">Transações</Link>
-                    </li>
-                </ul>
-            )}
-        </div>
-    );
+          <button
+            className={style.btnToggle}
+            onClick={() => setOpen((prev) => !prev)}
+            aria-label="Abrir menu"
+            aria-expanded={open}
+          >
+            ☰
+          </button>
+        </>
+      ) : (
+        renderLinks()
+      )}
+    </div>
+  );
 }
