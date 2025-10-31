@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import Menu from "./Menu";
 
 const meta: Meta<typeof Menu> = {

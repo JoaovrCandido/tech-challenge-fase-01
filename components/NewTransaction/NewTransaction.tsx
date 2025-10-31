@@ -1,8 +1,9 @@
 "use client";
 
-import style from "./NewTransaction.module.css";
 import { TransactionType } from "@/types";
 import { NewTransactionProps } from "@/types";
+
+import style from "./NewTransaction.module.css";
 
 export default function NewTransaction({
   title,

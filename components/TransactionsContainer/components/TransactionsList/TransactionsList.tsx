@@ -1,9 +1,10 @@
+import Image from "next/image";
+
 import { TransactionsListProps } from "@/types";
 
 import { formatDate, formatCurrency } from "@/utils/formatters";
 import { getMonthName } from "@/utils/getMonthName";
 import { AdjustTypesNames } from "@/utils/adjustTypesName";
-import Image from "next/image";
 
 import editImage from "@/public/edit.png";
 import deleteImage from "@/public/delete-icon.png";
@@ -28,9 +29,9 @@ const TransactionsList = ({
         return (
           <div key={transaction.id} className={style.transactionItem}>
             <div className={style.transactionHeader}>
-              <h3 className={style.transactionMonth}>
+              <h2 className={style.transactionMonth}>
                 {getMonthName(transaction.date)}
-              </h3>
+              </h2>
 
               <div className={style.transactionActions}>
                 <button

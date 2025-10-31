@@ -76,8 +76,8 @@ export default function Home() {
   const handleInvalidTransfer = () => {
     setIsOpenModal(true);
     setModalTitle("Erro!!!");
-    setModalMessage("Valor da trasferência maior do que o saldo atual!");
-  }
+    setModalMessage("Saldo insuficiente para realizar a transferência!");
+  };
 
   const handleRequestError = () => {
     setIsOpenModal(true);
@@ -103,12 +103,9 @@ export default function Home() {
     };
 
     setIsSubmitting(true);
-    console.log("Enviando dados para a API:", { type, value, description });
 
     try {
-      const created = await createTransaction(newTransaction);
-
-      console.log("transação criada: ", created);
+      await createTransaction(newTransaction);
 
       mutate("transactions");
 
@@ -144,10 +141,9 @@ export default function Home() {
         />
       </div>
 
-          <aside className={style.transactionsPanel}>
-
-            <TransactionsContainer />
-          </aside>
+      <aside className={style.transactionsPanel}>
+        <TransactionsContainer />
+      </aside>
 
       <SuccessModal
         isOpen={isOpenModal}

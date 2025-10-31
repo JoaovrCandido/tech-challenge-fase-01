@@ -1,7 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/nextjs";
 import React, { useState } from "react";
-import SuccessModal from "./SuccessModal";
+
+import type { Meta, StoryObj } from "@storybook/nextjs";
+
 import { SuccessModalProps } from "@/types";
+
+import SuccessModal from "./SuccessModal";
 
 const ModalExampleWrapper: React.FC<SuccessModalProps> = (args) => {
   const [isOpen, setIsOpen] = useState(args.isOpen);

@@ -1,5 +1,5 @@
 .transactionsListHome {
-  padding: var(--spacing-xl) var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-xl);
   background: var(--color-bg-components);
   border-radius: var(--radius-md);
 }
@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
-  border-bottom: 1px solid #47a138;
+  border-bottom: 1px solid var(--color-green);
   margin-bottom: var(--spacing-lg);
 
   &:last-child {
@@ -29,7 +29,7 @@
 
 .transactionMonth {
   font-size: var(--font-size-sm);
-  color: #47a138;
+  color:var(--color-green);
 }
 
 .transactionInfo {
@@ -46,7 +46,7 @@
 .transactionInfo .transactionDate {
   font-size: var(--font-size-sm);
   color: var(--color-text);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .transactionValueAndDesc {

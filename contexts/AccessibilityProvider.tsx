@@ -42,6 +42,7 @@ export function AccessibilityProvider({
       root.style.setProperty("--color-primary-light", "#004D61");
       root.style.setProperty("--color-secondary", "#333333");
       root.style.setProperty("--color-bg-components", "#0A0A0A")
+      root.style.setProperty("--color-green", "#47a138")
     } else {
       root.style.setProperty("--color-bg", "#e8f0e8");
       root.style.setProperty("--color-text", "#222222");
@@ -49,6 +50,7 @@ export function AccessibilityProvider({
       root.style.setProperty("--color-primary-light", "#0c6779");
       root.style.setProperty("--color-secondary", "#f4f6f2");
       root.style.setProperty("--color-bg-components", "#f5f5f5")
+      root.style.setProperty("--color-green", "#2e7d22")
     }
   }, [theme]);
 

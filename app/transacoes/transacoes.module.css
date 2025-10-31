@@ -5,7 +5,7 @@
   padding-bottom: 3%;
 }
 
-.MExtrato {
+.containerStatement {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 24px;
@@ -15,7 +15,7 @@
   }
 }
 
-.boxExtrato {
+.boxStatement {
   grid-column: span 8;
 
   @media (max-width: 768px) {

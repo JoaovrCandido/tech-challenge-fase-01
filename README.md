@@ -1,6 +1,10 @@
 # 🧩 Projeto Next.js com TypeScript e Storybook
 
-Este projeto foi criado com [Next.js](https://nextjs.org/) utilizando **TypeScript** e **ESLint** para garantir qualidade de código.
+Este projeto é uma aplicação financeira, o usuário pode registrar novas transações, editar informações existentes e excluir lançamentos quando necessário.
+
+Além das funcionalidades principais, o projeto também inclui recursos de acessibilidade para melhorar a experiência do usuário, como alternância entre tema claro e escuro e a possibilidade de ajustar o tamanho da fonte, garantindo maior conforto visual e acessibilidade para diferentes perfis de usuários.
+
+O projeto foi criado com [Next.js](https://nextjs.org/) utilizando **TypeScript** e **ESLint** para garantir qualidade de código.
 Também inclui **Storybook** para documentação e visualização de componentes.
 
 ---
@@ -70,10 +74,15 @@ Após o carregamento, o Storybook estará disponível em:
 ├── .storybook
 ├── app/
 │   ├── api/
+│   ├── transacoes/
+│   ├──     ├── layout.tsx
+│   ├──     └── page.tsx
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── ...
 ├── components
+├── hooks
+├── lib
 ├── public
 ├── styles
 ├── types

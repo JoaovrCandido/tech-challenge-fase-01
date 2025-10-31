@@ -1,9 +1,10 @@
 "use client";
+
 import React from "react";
+
 import { SuccessModalProps } from "@/types";
 
 import style from './SuccessModal.module.css'
-
 
 const SuccessModal: React.FC<SuccessModalProps> = ({
   isOpen,

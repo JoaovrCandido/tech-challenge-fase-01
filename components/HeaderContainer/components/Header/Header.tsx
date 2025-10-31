@@ -1,14 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { HeaderProps } from "@/types";
 
-import style from "./Header.module.css";
+import { HeaderProps } from "@/types";
 
 import alterarfonte from "@/public/alterarfonte.png";
 import modoclaroescuro from "@/public/modoclaroescuro.png";
+
 import { useIsMobile } from "@/hooks/useIsMobile";
+
 import Menu from "@/components/Menu/Menu";
+
+import style from "./Header.module.css";
 
 export default function Header({
   title,

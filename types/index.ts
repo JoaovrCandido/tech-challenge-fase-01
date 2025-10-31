@@ -74,3 +74,14 @@ export interface TransactionsListHomeProps {
   transaction: Transaction[];
   title: string
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+export interface MenuItem {
+  label: string;
+  path: string;
+}

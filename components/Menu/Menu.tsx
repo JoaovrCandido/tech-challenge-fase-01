@@ -7,12 +7,9 @@ import { usePathname } from "next/navigation";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-import style from "./Menu.module.css";
+import { MenuItem } from "@/types";
 
-interface MenuItem {
-  label: string;
-  path: string;
-}
+import style from "./Menu.module.css";
 
 const menuItems: MenuItem[] = [
   { label: "Início", path: "/" },
@@ -24,28 +21,42 @@ export default function Menu() {
   const isMobile = useIsMobile();
   const pathname = usePathname();
 
+  const closeMenu = () => setOpen(false);
+
   const renderLinks = () => (
-    <ul
-      className={`${style.menuLinks} ${
-        isMobile ? (open ? style.active : style.inactive) : ""
-      }`}
+    <div
+      className={`${style.mobileMenuWrapper} ${open ? style.open : ""}`}
     >
-      {menuItems.map((item) => {
-        const isActive = pathname === item.path;
-        return (
-          <li
-            key={item.path}
-            className={`${style.menuItem} ${isActive ? style.activeItem : ""}`}
-          >
-            <Link href={item.path}>{item.label}</Link>
-          </li>
-        );
-      })}
-    </ul>
+      {isMobile && (
+        <button className={style.btnClose} onClick={closeMenu}>
+          ✖
+        </button>
+      )}
+
+      <ul className={style.menuLinks}>
+        {menuItems.map((item) => {
+          const isActive = pathname === item.path;
+          return (
+            <li
+              key={item.path}
+              className={`${style.menuItem} ${isActive ? style.activeItem : ""}`}
+              onClick={closeMenu}
+            >
+              <Link href={item.path}>{item.label}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
+
 
   return (
     <div className={style.Menu}>
+      {isMobile && open && (
+        <div className={style.overlay} onClick={closeMenu}></div>
+      )}
+
       {isMobile ? (
         <>
           {renderLinks()}
@@ -65,4 +76,3 @@ export default function Menu() {
     </div>
   );
 }
-

@@ -11,10 +11,10 @@ export default function Transacoes() {
   const isMobile = useIsMobile();
 
   return (
-    <section className={style.MExtrato}>
+    <section className={style.containerStatement}>
       {!isMobile && <Menu />}
 
-      <div className={style.boxExtrato}>
+      <div className={style.boxStatement}>
 
       <TransactionsContainer />
       </div>

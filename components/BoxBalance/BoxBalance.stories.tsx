@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import BoxBalance from "./BoxBalance";
 import { userEvent, within } from "@storybook/testing-library";
+
+import BoxBalance from "./BoxBalance";
 
 const meta: Meta<typeof BoxBalance> = {
   title: "Components/Home/BoxBalance",

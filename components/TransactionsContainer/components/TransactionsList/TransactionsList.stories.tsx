@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/nextjs";
+
+import { Transaction, TransactionType } from "@/types";
 
 import TransactionsList from "./TransactionsList";
 import Modal from "@/components/Modal/Modal";
@@ -7,7 +10,6 @@ import NewTransaction from "@/components/NewTransaction/NewTransaction";
 import SuccessModal from "@/components/SuccessModal/SuccessModal";
 import DeleteTransaction from "@/components/DeleteTransaction/DeleteTransaction";
 
-import { Transaction, TransactionType } from "@/types";
 
 const mockTransactions: Transaction[] = [
   {

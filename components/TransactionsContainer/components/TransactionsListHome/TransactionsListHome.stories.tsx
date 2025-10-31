@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import TransactionsListHome from "./TransactionsListHome";
 
 import { Transaction } from "@/types";
+
+import TransactionsListHome from "./TransactionsListHome";
 
 const mockTransactions: Transaction[] = [
   {

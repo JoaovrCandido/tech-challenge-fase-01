@@ -1,13 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/nextjs";
 import React from "react";
+
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
 import {
   AccessibilityProvider,
   useAccessibility,
 } from "@/contexts/AccessibilityProvider";
 
-import Header from "./Header";
 import { HeaderProps } from "@/types";
+
+import Header from "./Header";
 
 const meta = {
   title: "Components/Home/Header",

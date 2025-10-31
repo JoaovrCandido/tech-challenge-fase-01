@@ -1,10 +1,6 @@
-import style from './Modal.module.css';
+import { ModalProps } from '@/types';
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}
+import style from './Modal.module.css';
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) {

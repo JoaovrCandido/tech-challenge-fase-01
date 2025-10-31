@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/nextjs";
 import { useState } from "react";
-import NewTransaction from "./NewTransaction";
-import { TransactionType } from "@/types";
-import  SuccessModal from "../SuccessModal/SuccessModal";
 
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { userEvent, within } from "@storybook/testing-library";
+
+import { TransactionType } from "@/types";
+
+import NewTransaction from "./NewTransaction";
+import  SuccessModal from "../SuccessModal/SuccessModal";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logAction = (name: string) => (...args: any[]) => {
@@ -63,6 +65,7 @@ export const Default: Story = {
       <>
       <NewTransaction
         {...args}
+        title="Nova transação"
         type={type}
         value={value}
         description={description}
@@ -94,6 +97,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
   args: {
+    title: "Nova transação",
     type: "deposito",
     value: "1.250,00",
     description: "Deposito...",
@@ -107,7 +111,7 @@ export const PreenchendoFormulario: Story = {
     const canvas = within(canvasElement);
 
     const select = canvas.getByRole("combobox");
-    const valueInput = canvas.getByPlaceholderText("00,00");
+    const valueInput = canvas.getByPlaceholderText("10,00");
     const descInput = canvas.getByPlaceholderText("Descrição (opcional)");
     const submitButton = canvas.getByRole("button", {
       name: /concluir transação/i,
