@@ -1,15 +1,13 @@
+import Loading from '@/components/Loading/Loading';
+
+import style from './home.module.css'
+
 export default function LoadingPage() {
   return (
     <div
-      style={{
-        height: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className={style.loadingPage}
     >
-      <h1>Carregando...</h1>
+      <Loading />
     </div>
   );
 }
